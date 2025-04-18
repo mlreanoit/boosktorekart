@@ -5,6 +5,9 @@ import {
   PayPalScriptProvider,
   usePayPalScriptReducer,
 } from '@paypal/react-paypal-js'
+import { loadStripe } from '@stripe/stripe-js'
+import { Elements } from '@stripe/react-stripe-js'
+import StripeForm from './stripe-form'
 import { Card, CardContent } from '@/components/ui/card'
 import { toast } from 'sonner'
 import {
@@ -18,9 +21,10 @@ import CheckoutFooter from '../checkout-footer'
 import { redirect, useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import ProductPrice from '@/components/shared/product/product-price'
-import { loadStripe } from '@stripe/stripe-js'
-import { Elements } from '@stripe/react-stripe-js'
-import StripeForm from './stripe-form'
+
+const stripePromise = loadStripe(
+  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string
+)
 
 export default function OrderPaymentForm({
   order,
@@ -152,10 +156,6 @@ export default function OrderPaymentForm({
         </div>
       </CardContent>
     </Card>
-  )
-
-  const stripePromise = loadStripe(
-    process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string
   )
 
   return (
