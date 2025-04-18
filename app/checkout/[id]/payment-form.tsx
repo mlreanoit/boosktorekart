@@ -25,7 +25,10 @@ import ProductPrice from '@/components/shared/product/product-price'
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string
 )
-
+console.log(
+  'Stripe publishable key:',
+  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+)
 export default function OrderPaymentForm({
   order,
   paypalClientId,
